@@ -12,6 +12,7 @@ const app = express();
 app.use(express.static('./build', { index: false }))
 
 app.get('/*', (req, res) => {
+	// SSR with 'styled-components'
 	const sheet = new ServerStyleSheet();
 
 	const reactApp = renderToString(
@@ -31,6 +32,7 @@ app.get('/*', (req, res) => {
 		return res.send(
 			data.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`)
 				.replace('{{ styles }}', sheet.getStyleTags())
+				// `{{ styles }}` from `public\index.html`
 		)
 	});
 });
