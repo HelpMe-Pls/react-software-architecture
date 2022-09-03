@@ -5,10 +5,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// .render() is replaced by .hydrate() coz we're SSR
+// so basically it takes the prerendered HTML from `server.js` and adds React to it,
+// so that it has the behavior of a React app instead of plain HTML
 ReactDOM.hydrate(
+  // Wrap the <App /> inside the <BrowserRouter/> coz once it's "hydrated", 
+  // the <StaticRouter/> will be replaced by <BrowserRouter/>
   <React.StrictMode>
 	  <BrowserRouter>
-		<App />
+		  <App />
 	  </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

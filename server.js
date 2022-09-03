@@ -11,12 +11,15 @@ const app = express();
 app.use(express.static('./build', { index: false }))
 
 app.get('/*', (req, res) => {
+	// `renderToString()` == `ReactDOM.render()` in the browser
 	const reactApp = renderToString(
+		// <StaticRouter/> == <BrowserRouter/> for the server
 		<StaticRouter location={req.url}>
 			<App />
 		</StaticRouter>
 	);
-
+	
+	// Load the generated static HTML and then send it to the browser then to be hydrated
 	const templateFile = path.resolve('./build/index.html');
 	fs.readFile(templateFile, 'utf8', (err, data) => {
 		if (err) {
@@ -24,7 +27,7 @@ app.get('/*', (req, res) => {
 		}
 
 		return res.send(
-			data.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`);
+			data.replace('<div id="root"></div>', `<div id="root">${reactApp}</div>`)
 		)
 	});
 });
