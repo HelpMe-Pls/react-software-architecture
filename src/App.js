@@ -4,6 +4,7 @@ import './App.css';
 
 const App = () => {
 	return (
+		// <RecoilRoot/> == <Provider/> in 'react-redux'
 		<RecoilRoot>
 			<h1>State Management Example</h1>
 			<CounterButton />
