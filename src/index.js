@@ -8,7 +8,10 @@ import { InitialDataContext } from './InitialDataContext';
 
 ReactDOM.hydrate(
   <React.StrictMode>
-	  <InitialDataContext.Provider value={(window && window.preloadedData) || { _data: {} }}>
+		<InitialDataContext.Provider
+			value={(window && window.preloadedData)
+				// If there's no data then the `setData` from `useDataSSR` will do its work
+				|| { _data: {} }}>
 		<BrowserRouter>
 			<App />
 		</BrowserRouter>
